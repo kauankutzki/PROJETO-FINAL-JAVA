@@ -6,6 +6,8 @@ import view.DepartamentoView;
 import view.FuncionarioView;
 
 import java.util.Scanner;
+import view.AvaliacaoView;
+import view.TreinamentoView;
 
 /**
  * Main TEMPORARIA — integra os modulos do Aluno 1 e do Aluno 2.
@@ -31,6 +33,8 @@ public class Main {
         FuncionarioView  funcView  = new FuncionarioView(scanner, funcController);
         CargoView        cargoView = new CargoView(scanner);
         DepartamentoView depView   = new DepartamentoView(scanner, depController, funcController, repoDep);
+        AvaliacaoView avaliacaoView = new AvaliacaoView(funcController);
+        TreinamentoView treinamentoView = new TreinamentoView(funcController);
 
         int opcao;
 
@@ -41,6 +45,8 @@ public class Main {
             System.out.println("1 - Funcionarios  (Aluno 1)");
             System.out.println("2 - Cargos        (Aluno 2)");
             System.out.println("3 - Departamentos (Aluno 2)");
+            System.out.println("4 - Avaliacoes de Desempenho (Aluno 4)");
+            System.out.println("5 - Treinamentos (Aluno 4)");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
 
@@ -54,6 +60,8 @@ public class Main {
                 case 1: funcView.exibirMenu();  break;
                 case 2: cargoView.exibirMenu(); break;
                 case 3: depView.exibirMenu();   break;
+                case 4: avaliacaoView.menu(); break;
+                case 5: treinamentoView.menu(); break;
                 case 0: System.out.println("Sistema encerrado."); break;
                 default: System.out.println("Opcao invalida!");
             }
