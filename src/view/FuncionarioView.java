@@ -45,7 +45,7 @@ public class FuncionarioView {
             System.out.println("2 - Cadastrar PJ");
             System.out.println("3 - Cadastrar Estagiario");
             System.out.println("4 - Listar todos");
-            System.out.println("0 - Sair");
+            System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
 
             opcao = Integer.parseInt(scanner.nextLine());
@@ -64,15 +64,63 @@ public class FuncionarioView {
 
     // Cadastra um funcionario do tipo escolhido.
     private void cadastrar(String tipo) {
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
-        System.out.print("CPF: ");
-        String cpf = scanner.nextLine();
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
-        System.out.print("Salario: ");
-        double salario = Double.parseDouble(scanner.nextLine());
 
+        // 1. NOME: pede até digitar apenas letras e espaços
+        String nome = "";
+        boolean nomeValido = false;
+        while (!nomeValido) {
+            System.out.print("Nome: ");
+            nome = scanner.nextLine();
+
+            if (nome.matches("[a-zA-Z ]+")) {
+                nomeValido = true;
+            } else {
+                System.out.println("Nome invalido! Use apenas letras.");
+            }
+        }
+
+        // 2. CPF: pede até digitar exatamente 11 caracteres
+        String cpf = "";
+        boolean cpfValido = false;
+        while (!cpfValido) {
+            System.out.print("CPF (11 numeros, sem pontos): ");
+            cpf = scanner.nextLine();
+
+            if (cpf.length() == 11 && cpf.matches("\\d+")) {
+                cpfValido = true;
+            } else {
+                System.out.println("CPF invalido! Digite exatamente 11 numeros.");
+            }
+        }
+
+        // 3. EMAIL: pede até encontrar o caractere '@'
+        String email = "";
+        boolean emailValido = false;
+        while (!emailValido) {
+            System.out.print("Email: ");
+            email = scanner.nextLine();
+
+            if (email.contains("@")) {
+                emailValido = true;
+            } else {
+                System.out.println("Email invalido! O email deve conter '@'.");
+            }
+        }
+
+        // 4. SALÁRIO: pede até digitar um número maior que zero
+        double salario = 0;
+        while (salario <= 0) {
+            System.out.print("Salario: ");
+            if (scanner.hasNextDouble()) {
+                salario = scanner.nextDouble();
+                if (salario <= 0) {
+                    System.out.println("Salario invalido! O valor deve ser maior que zero.");
+                }
+            } else {
+                System.out.println("Salario invalido! Digite um numero valido.");
+            }
+            scanner.nextLine();
+        }
         // IF/ELSE decidindo qual metodo do controller chamar.
         if (tipo.equals("CLT")) {
             controller.cadastrarCLT(nome, cpf, email, salario);
@@ -81,7 +129,6 @@ public class FuncionarioView {
         } else {
             controller.cadastrarEstagiario(nome, cpf, email, salario);
         }
-
         System.out.println("Cadastrado com sucesso!");
     }
 
