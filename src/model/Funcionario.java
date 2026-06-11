@@ -30,7 +30,7 @@ public abstract class Funcionario extends Pessoa implements Avaliavel {
     public Funcionario(String nome, String cpf, String email, double salarioBase) {
         // super(...) = chama o construtor da MAE (Pessoa) pra ela cuidar do nome/cpf/email.
         super(nome, cpf, email);
-        this.salarioBase = salarioBase;
+        setSalarioBase(salarioBase);
         this.notas = new ArrayList<>(); // lista comeca vazia
     }
 
@@ -39,7 +39,7 @@ public abstract class Funcionario extends Pessoa implements Avaliavel {
 
     // Getter e setter do salario
     public double getSalarioBase() { return salarioBase; }
-    public void setSalarioBase(double salarioBase) { this.salarioBase = salarioBase; }
+    public void setSalarioBase(double salarioBase) {this.salarioBase = salarioBase;}
 
     // METODOS DA INTERFACE Avaliavel (cumprindo o contrato)
     @Override

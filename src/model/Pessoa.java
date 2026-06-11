@@ -20,9 +20,9 @@ public abstract class Pessoa {
 
     // CONSTRUTOR = a "receita" de como nasce uma Pessoa.
     public Pessoa(String nome, String cpf, String email) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
+        setNome(nome);
+        setCpf(cpf);
+        setEmail(email);
     }
 
     // GETTERS (pegar o valor)
@@ -31,7 +31,9 @@ public abstract class Pessoa {
     public String getEmail() { return email; }
 
     // SETTERS (mudar o valor)
-    public void setNome(String nome) { this.nome = nome; }
-    public void setCpf(String cpf) { this.cpf = cpf; }
-    public void setEmail(String email) { this.email = email; }
+    public void setNome(String nome) {this.nome = nome;}
+
+    public void setCpf(String cpf) {this.cpf = cpf;}
+
+    public void setEmail(String email) {this.email = email;}
 }

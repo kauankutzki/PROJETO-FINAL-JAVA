@@ -3,7 +3,7 @@ package model;
 /**
  * Estagiario — terceira filha de Funcionario.
  *
- * Regra simplificada: recebe a bolsa (salarioBase) + auxilio fixo de R$ 220.
+ * Regra simplificada: recebe a bolsa (salarioBase) + auxilio transporte de R$ 220.
  * Sem desconto.
  *
  * Tres filhas, tres formulas diferentes para a MESMA pergunta.
@@ -11,13 +11,21 @@ package model;
  */
 public class Estagiario extends Funcionario {
 
-    public Estagiario(String nome, String cpf, String email, double salarioBase) {
+    private static final double AUXILIO_TRANSPORTE = 220.0;
+
+    private String instituicaoEnsino;
+
+    public Estagiario(String nome, String cpf, String email, double salarioBase,
+                      String instituicaoEnsino) {
         super(nome, cpf, email, salarioBase);
+        this.instituicaoEnsino = instituicaoEnsino;
     }
 
-    // SOBRESCRITA: bolsa + auxilio fixo.
+    // SOBRESCRITA: bolsa + auxilio transporte fixo.
     @Override
     public double calcularSalarioLiquido() {
-        return salarioBase + 220;
+        return salarioBase + AUXILIO_TRANSPORTE;
     }
+
+    public String getInstituicaoEnsino() { return instituicaoEnsino; }
 }

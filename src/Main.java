@@ -1,8 +1,10 @@
 import controller.DepartamentoController;
+import controller.EstagiarioController;
 import controller.FuncionarioController;
 import repository.RepositorioDepartamento;
 import view.CargoView;
 import view.DepartamentoView;
+import view.EstagiarioView;
 import view.FuncionarioView;
 
 import java.util.Scanner;
@@ -25,10 +27,12 @@ public class Main {
         // Instancias compartilhadas: o FuncionarioController e passado para
         // o DepartamentoView, que precisa listar funcionarios ao definir gestor.
         FuncionarioController funcController = new FuncionarioController();
+        EstagiarioController  estController  = new EstagiarioController();
         DepartamentoController depController  = new DepartamentoController();
         RepositorioDepartamento repoDep       = new RepositorioDepartamento();
 
-        FuncionarioView  funcView  = new FuncionarioView(scanner, funcController);
+        EstagiarioView   estView   = new EstagiarioView(scanner, estController);
+        FuncionarioView  funcView  = new FuncionarioView(scanner, funcController, estView);
         CargoView        cargoView = new CargoView(scanner);
         DepartamentoView depView   = new DepartamentoView(scanner, depController, funcController, repoDep);
 
