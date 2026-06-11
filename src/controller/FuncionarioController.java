@@ -1,6 +1,6 @@
 package controller;
 
-import model.Estagiario;
+import exception.DadoInvalidoException;
 import model.Funcionario;
 import model.FuncionarioCLT;
 import model.FuncionarioPJ;
@@ -26,21 +26,19 @@ public class FuncionarioController {
     private List<Funcionario> funcionarios = new ArrayList<>();
 
     // Cadastrar CLT
-    public void cadastrarCLT(String nome, String cpf, String email, double salario) {
-        FuncionarioCLT novo = new FuncionarioCLT(nome, cpf, email, salario);
-        funcionarios.add(novo);
+    public void cadastrarCLT(String nome, String cpf, String email, double salario) throws DadoInvalidoException {
+        if (salario <= 0) {
+            throw new DadoInvalidoException("O salario deve ser maior que zero.");
+        }
+        funcionarios.add(new FuncionarioCLT(nome, cpf, email, salario));
     }
 
     // Cadastrar PJ
-    public void cadastrarPJ(String nome, String cpf, String email, double salario) {
-        FuncionarioPJ novo = new FuncionarioPJ(nome, cpf, email, salario);
-        funcionarios.add(novo);
-    }
-
-    // Cadastrar Estagiario
-    public void cadastrarEstagiario(String nome, String cpf, String email, double salario) {
-        Estagiario novo = new Estagiario(nome, cpf, email, salario);
-        funcionarios.add(novo);
+    public void cadastrarPJ(String nome, String cpf, String email, double salario) throws DadoInvalidoException {
+        if (salario <= 0) {
+            throw new DadoInvalidoException("O salario deve ser maior que zero.");
+        }
+        funcionarios.add(new FuncionarioPJ(nome, cpf, email, salario));
     }
 
     // Devolver todos os funcionarios cadastrados.

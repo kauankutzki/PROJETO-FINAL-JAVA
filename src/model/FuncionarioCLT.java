@@ -13,6 +13,7 @@ package model;
  * Regra simplificada do CLT: salario base menos 11% de desconto (INSS+IR juntos).
  */
 public class FuncionarioCLT extends Funcionario {
+    private static final double desconto_Clt = 0.11;
 
     public FuncionarioCLT(String nome, String cpf, String email, double salarioBase) {
         super(nome, cpf, email, salarioBase);
@@ -21,7 +22,6 @@ public class FuncionarioCLT extends Funcionario {
     // SOBRESCRITA: CLT tem desconto.
     @Override
     public double calcularSalarioLiquido() {
-        double desconto = salarioBase * 0.11; // 11% de desconto
-        return salarioBase - desconto;
+        return salarioBase - (salarioBase * desconto_Clt);
     }
 }

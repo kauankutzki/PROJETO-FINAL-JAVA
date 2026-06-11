@@ -1,6 +1,7 @@
 package view;
 
 import controller.FuncionarioController;
+import exception.DadoInvalidoException;
 import model.Funcionario;
 
 import java.util.List;
@@ -21,18 +22,14 @@ import java.util.Scanner;
 public class FuncionarioView {
 
     private FuncionarioController controller;
+    private EstagiarioView estagiarioView;
     private Scanner scanner;
 
-    // Construtor padrao (usado quando a View gerencia tudo sozinha).
-    public FuncionarioView() {
-        this.controller = new FuncionarioController();
-        this.scanner = new Scanner(System.in);
-    }
-
     // Construtor com injecao: permite compartilhar scanner e controller com outros modulos.
-    public FuncionarioView(Scanner scanner, FuncionarioController controller) {
+    public FuncionarioView(Scanner scanner, FuncionarioController controller, EstagiarioView estagiarioView) {
         this.scanner = scanner;
         this.controller = controller;
+        this.estagiarioView = estagiarioView;
     }
 
     public void exibirMenu() {
@@ -43,20 +40,25 @@ public class FuncionarioView {
             System.out.println("\n===== MENU FUNCIONARIOS =====");
             System.out.println("1 - Cadastrar CLT");
             System.out.println("2 - Cadastrar PJ");
-            System.out.println("3 - Cadastrar Estagiario");
-            System.out.println("4 - Listar todos");
+            System.out.println("3 - Listar todos");
+            System.out.println("4 - Estagiarios");
             System.out.println("0 - Voltar");
             System.out.print("Escolha: ");
 
-            opcao = Integer.parseInt(scanner.nextLine());
+            try {
+                opcao = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Opcao invalida! Digite um numero.");
+                opcao = -1;
+            }
 
             // SWITCH: cada numero leva pra uma acao.
             switch (opcao) {
-                case 1: cadastrar("CLT"); break;
-                case 2: cadastrar("PJ"); break;
-                case 3: cadastrar("ESTAGIARIO"); break;
-                case 4: listar(); break;
-                case 0: System.out.println("Saindo..."); break;
+                case 1: cadastrar("CLT");          break;
+                case 2: cadastrar("PJ");           break;
+                case 3: listar();                  break;
+                case 4: estagiarioView.exibirMenu(); break;
+                case 0: System.out.println("Voltando..."); break;
                 default: System.out.println("Opcao invalida!");
             }
         } while (opcao != 0);
@@ -107,29 +109,29 @@ public class FuncionarioView {
             }
         }
 
-        // 4. SALÁRIO: pede até digitar um número maior que zero
+        // 4. SALÁRIO: pede até digitar um numero valido
         double salario = 0;
-        while (salario <= 0) {
+        boolean salarioValido = false;
+        while (!salarioValido) {
             System.out.print("Salario: ");
-            if (scanner.hasNextDouble()) {
-                salario = scanner.nextDouble();
-                if (salario <= 0) {
-                    System.out.println("Salario invalido! O valor deve ser maior que zero.");
-                }
-            } else {
-                System.out.println("Salario invalido! Digite um numero valido.");
+            try {
+                salario = Double.parseDouble(scanner.nextLine());
+                salarioValido = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Salario invalido! Digite um numero.");
             }
-            scanner.nextLine();
         }
         // IF/ELSE decidindo qual metodo do controller chamar.
-        if (tipo.equals("CLT")) {
-            controller.cadastrarCLT(nome, cpf, email, salario);
-        } else if (tipo.equals("PJ")) {
-            controller.cadastrarPJ(nome, cpf, email, salario);
-        } else {
-            controller.cadastrarEstagiario(nome, cpf, email, salario);
+        try {
+            if (tipo.equals("CLT")) {
+                controller.cadastrarCLT(nome, cpf, email, salario);
+            } else {
+                controller.cadastrarPJ(nome, cpf, email, salario);
+            }
+            System.out.println("Cadastrado com sucesso!");
+        } catch (DadoInvalidoException e) {
+            System.out.println("Erro ao cadastrar: " + e.getMessage());
         }
-        System.out.println("Cadastrado com sucesso!");
     }
 
     // Lista todos os funcionarios cadastrados.
