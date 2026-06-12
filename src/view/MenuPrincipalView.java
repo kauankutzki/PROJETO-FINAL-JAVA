@@ -10,6 +10,8 @@ import controller.FuncionarioController;
 import controller.VagaController;
 import repository.RepositorioDepartamento;
 import service.RecrutamentoService;
+import controller.AvaliacaoController;
+import controller.TreinamentoController;
 
 import java.util.Scanner;
 
@@ -59,6 +61,9 @@ public class MenuPrincipalView {
 
         FolhaPagamentoController folhaPagamentoController = new FolhaPagamentoController(funcionarioController);
         FolhaPagamentoView folhaPagamentoView = new FolhaPagamentoView(scanner, folhaPagamentoController);
+        // Aluno 4
+        AvaliacaoView avaliacaoView = new AvaliacaoView(funcionarioController);
+        TreinamentoView treinamentoView = new TreinamentoView(funcionarioController);
 
         // ---------- Aluno 5: Recrutamento ----------
         VagaController vagaController = new VagaController();
@@ -85,6 +90,8 @@ public class MenuPrincipalView {
             System.out.println("6 - Vagas              (Aluno 5)");
             System.out.println("7 - Candidatos         (Aluno 5)");
             System.out.println("8 - Contratar candidato aprovado (Aluno 5)");
+            System.out.println("9 - Avaliações de Desempenho (Aluno 4)");
+            System.out.println("10 - Treinamentos (Aluno 4)");
             System.out.println("0 - Sair");
             System.out.print("Escolha: ");
 
@@ -100,6 +107,8 @@ public class MenuPrincipalView {
                 case 6: vagaView.exibirMenu();             break;
                 case 7: candidatoView.exibirMenu();        break;
                 case 8: contratarCandidato(recrutamentoService, candidatoView); break;
+                case 9: avaliacaoView.menu(); break;
+                case 10: treinamentoView.menu(); break;
                 case 0: System.out.println("Sistema encerrado."); break;
                 default: System.out.println("Opcao invalida!");
             }
