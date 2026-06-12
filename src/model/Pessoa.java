@@ -14,24 +14,31 @@ package model;
  */
 public abstract class Pessoa {
 
+    private static int contadorId = 1;
+
+    protected int id;
     protected String nome;
     protected String cpf;
     protected String email;
 
     // CONSTRUTOR = a "receita" de como nasce uma Pessoa.
     public Pessoa(String nome, String cpf, String email) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
+        this.id = contadorId++;
+        setNome(nome);
+        setCpf(cpf);
+        setEmail(email);
     }
 
     // GETTERS (pegar o valor)
+    public int getId() { return id; }
     public String getNome() { return nome; }
     public String getCpf() { return cpf; }
     public String getEmail() { return email; }
 
     // SETTERS (mudar o valor)
-    public void setNome(String nome) { this.nome = nome; }
-    public void setCpf(String cpf) { this.cpf = cpf; }
-    public void setEmail(String email) { this.email = email; }
+    public void setNome(String nome) {this.nome = nome;}
+
+    public void setCpf(String cpf) {this.cpf = cpf;}
+
+    public void setEmail(String email) {this.email = email;}
 }
