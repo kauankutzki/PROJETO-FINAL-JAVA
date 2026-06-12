@@ -1,68 +1,21 @@
-import controller.DepartamentoController;
-import controller.EstagiarioController;
-import controller.FuncionarioController;
-import repository.RepositorioDepartamento;
-import view.CargoView;
-import view.DepartamentoView;
-import view.EstagiarioView;
-import view.FuncionarioView;
+import view.MenuPrincipalView;
 
 import java.util.Scanner;
 
 /**
- * Main TEMPORARIA — integra os modulos do Aluno 1 e do Aluno 2.
+ * Main — ponto de entrada do sistema.
  *
- * Na integracao final, o Aluno 5 substitui isto pela MenuPrincipalView
- * que une todos os modulos dos 5 alunos.
- *
- * IMPORTANTE: o Scanner e criado aqui e passado para todas as Views,
- * para que compartilhem o mesmo fluxo de entrada do console.
- * Se cada View criasse o proprio Scanner, haveria conflitos de leitura.
+ * Agora so cria o Scanner (compartilhado por todas as Views) e
+ * entrega o controle para o MenuPrincipalView, que e responsabilidade
+ * do Aluno 5 (integracao final dos 5 modulos).
  */
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Instancias compartilhadas: o FuncionarioController e passado para
-        // o DepartamentoView, que precisa listar funcionarios ao definir gestor.
-        FuncionarioController funcController = new FuncionarioController();
-        EstagiarioController  estController  = new EstagiarioController();
-        DepartamentoController depController  = new DepartamentoController();
-        RepositorioDepartamento repoDep       = new RepositorioDepartamento();
-
-        EstagiarioView   estView   = new EstagiarioView(scanner, estController);
-        FuncionarioView  funcView  = new FuncionarioView(scanner, funcController, estView);
-        CargoView        cargoView = new CargoView(scanner);
-        DepartamentoView depView   = new DepartamentoView(scanner, depController, funcController, repoDep);
-
-        int opcao;
-
-        do {
-            System.out.println("\n==============================");
-            System.out.println("   SISTEMA DE GESTAO DE RH   ");
-            System.out.println("==============================");
-            System.out.println("1 - Funcionarios  (Aluno 1)");
-            System.out.println("2 - Cargos        (Aluno 2)");
-            System.out.println("3 - Departamentos (Aluno 2)");
-            System.out.println("0 - Sair");
-            System.out.print("Escolha: ");
-
-            try {
-                opcao = Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                opcao = -1;
-            }
-
-            switch (opcao) {
-                case 1: funcView.exibirMenu();  break;
-                case 2: cargoView.exibirMenu(); break;
-                case 3: depView.exibirMenu();   break;
-                case 0: System.out.println("Sistema encerrado."); break;
-                default: System.out.println("Opcao invalida!");
-            }
-
-        } while (opcao != 0);
+        MenuPrincipalView menuPrincipal = new MenuPrincipalView(scanner);
+        menuPrincipal.iniciar();
 
         scanner.close();
     }
