@@ -4,7 +4,7 @@ import controller.CandidatoController;
 import controller.EstagiarioController;
 import controller.FuncionarioController;
 import controller.VagaController;
-import exception.DadoInvalidoException;
+import exceptions.DadoInvalidoException;
 import model.Candidato;
 import model.Vaga;
 import model.enums.StatusCandidato;

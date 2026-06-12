@@ -1,7 +1,7 @@
 package view;
 
 import controller.EstagiarioController;
-import exception.DadoInvalidoException;
+import exceptions.DadoInvalidoException;
 import model.Estagiario;
 
 import java.util.List;

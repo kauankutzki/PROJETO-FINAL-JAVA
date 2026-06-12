@@ -1,6 +1,6 @@
 package controller;
 
-import exception.DadoInvalidoException;
+import exceptions.DadoInvalidoException;
 import model.Estagiario;
 
 import java.util.ArrayList;

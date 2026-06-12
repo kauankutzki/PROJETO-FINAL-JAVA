@@ -1,6 +1,6 @@
 package controller;
 
-import exception.DadoInvalidoException;
+import exceptions.DadoInvalidoException;
 import model.Funcionario;
 import model.FuncionarioCLT;
 import model.FuncionarioPJ;

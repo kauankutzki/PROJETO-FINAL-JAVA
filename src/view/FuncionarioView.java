@@ -1,7 +1,7 @@
 package view;
 
 import controller.FuncionarioController;
-import exception.DadoInvalidoException;
+import exceptions.DadoInvalidoException;
 import model.Funcionario;
 
 import java.util.List;

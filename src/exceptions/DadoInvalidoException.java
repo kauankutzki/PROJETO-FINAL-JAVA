@@ -1,4 +1,4 @@
-package exception;
+package exceptions;
 
 /**
  * Lancada quando um dado informado nao passa na validacao de negocio.
