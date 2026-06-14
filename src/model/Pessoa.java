@@ -12,7 +12,10 @@ package model;
  * - atributos sao "protected" = so essa classe e as filhas enxergam.
  * - quem esta de fora muda os dados pelos setters.
  */
-public abstract class Pessoa {
+// SERIALIZABLE: "assinar" essa interface diz ao Java que essa classe
+// pode ser transformada em arquivo. Como Funcionario herda de Pessoa,
+// CLT, PJ e Estagiario tambem ficam serializaveis automaticamente.
+public abstract class Pessoa implements java.io.Serializable {
 
     private static int contadorId = 1;
 
