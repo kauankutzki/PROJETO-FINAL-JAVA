@@ -13,6 +13,7 @@ import service.RecrutamentoService;
 import controller.AvaliacaoController;
 import controller.TreinamentoController;
 
+import util.LoggerService;
 import java.util.Scanner;
 
 /**
@@ -42,6 +43,13 @@ public class MenuPrincipalView {
 
         // ---------- Aluno 1: Nucleo de Pessoal ----------
         FuncionarioController funcionarioController = new FuncionarioController();
+
+        // Registra no log que o sistema foi iniciado
+        LoggerService.log("INFO", "Sistema iniciado");
+
+        // CARREGAR: ao iniciar o sistema, recupera os funcionarios salvos anteriormente
+        funcionarioController.carregarDoArquivo();
+
         EstagiarioController estagiarioController = new EstagiarioController();
         EstagiarioView estagiarioView = new EstagiarioView(scanner, estagiarioController);
         FuncionarioView funcionarioView = new FuncionarioView(scanner, funcionarioController, estagiarioView);
@@ -109,7 +117,12 @@ public class MenuPrincipalView {
                 case 8: contratarCandidato(recrutamentoService, candidatoView); break;
                 case 9: avaliacaoView.menu(); break;
                 case 10: treinamentoView.menu(); break;
-                case 0: System.out.println("Sistema encerrado."); break;
+                case 0:
+                    // SALVAR: ao sair do sistema, grava todos os funcionarios no arquivo
+                    funcionarioController.salvarEmArquivo();
+                    LoggerService.log("INFO", "Sistema encerrado");
+                    System.out.println("Dados salvos. Sistema encerrado.");
+                    break;
                 default: System.out.println("Opcao invalida!");
             }
 
