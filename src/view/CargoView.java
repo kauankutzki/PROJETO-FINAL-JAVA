@@ -7,25 +7,11 @@ import model.enums.NivelCargo;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * CargoView — o "V" do MVC para Cargo.
- *
- * Responsabilidade UNICA: entrada e saida de dados no console.
- * - Le o que o usuario digita (Scanner).
- * - Exibe resultados (System.out).
- * - NUNCA contém regra de negocio — isso fica no Controller.
- *
- * Estruturas obrigatorias que aparecem aqui:
- * - DO-WHILE: loop principal do menu.
- * - SWITCH: roteia cada opcao do menu.
- * - FOR indexado: ao listar cargos por indice.
- */
 public class CargoView {
 
     private CargoController controller = new CargoController();
     private Scanner scanner;
 
-    // Recebe o Scanner de fora para poder compartilhar com outras Views.
     public CargoView(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -33,7 +19,6 @@ public class CargoView {
     public void exibirMenu() {
         int opcao;
 
-        // DO-WHILE: executa ao menos uma vez, repete ate o usuario sair.
         do {
             System.out.println("\n===== MENU CARGOS =====");
             System.out.println("1 - Cadastrar cargo");
@@ -47,7 +32,6 @@ public class CargoView {
 
             opcao = lerInt();
 
-            // SWITCH: cada numero leva para uma acao especifica.
             switch (opcao) {
                 case 1: cadastrar();        break;
                 case 2: listarTodos();      break;
@@ -62,7 +46,6 @@ public class CargoView {
         } while (opcao != 0);
     }
 
-    // --- acoes privadas (cada uma cuida de uma tela) ---
 
     private void cadastrar() {
         System.out.println("\n-- Cadastrar Cargo --");
@@ -91,7 +74,6 @@ public class CargoView {
         }
 
         System.out.println("\n-- Lista de Cargos --");
-        // FOR indexado: percorre pelo indice, mostrando a posicao.
         for (int i = 0; i < lista.size(); i++) {
             System.out.println((i + 1) + ". " + lista.get(i));
         }
@@ -140,7 +122,6 @@ public class CargoView {
         System.out.println(controller.excluir(id));
     }
 
-    // --- leituras seguras com try/catch ---
 
     private int lerInt() {
         try {
