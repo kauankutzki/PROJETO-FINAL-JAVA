@@ -5,20 +5,11 @@ import model.Departamento;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * RepositorioDepartamento — guarda todos os departamentos em memoria e faz o CRUD.
- *
- * "implements Repositorio<Departamento>" = mesmo contrato, agora T = Departamento.
- *
- * SOBRECARGA:
- * - buscarPorId(int id)       — busca pelo id
- * - buscarPorSigla(String s)  — busca pela sigla (ex.: "TI", "RH")
- */
+
 public class RepositorioDepartamento implements Repositorio<Departamento> {
 
     private List<Departamento> departamentos = new ArrayList<>();
 
-    // --- CRUD ---
 
     @Override
     public void salvar(Departamento departamento) {
@@ -55,7 +46,6 @@ public class RepositorioDepartamento implements Repositorio<Departamento> {
         return null;
     }
 
-    // SOBRECARGA: busca pelo texto da sigla.
     public Departamento buscarPorSigla(String sigla) {
         for (Departamento d : departamentos) {
             if (d.getSigla().equalsIgnoreCase(sigla)) {
