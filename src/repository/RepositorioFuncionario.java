@@ -5,13 +5,6 @@ import model.Funcionario;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * RepositorioFuncionario — guarda todos os funcionarios em memoria e faz o CRUD deles.
- *
- * SOBRECARGA:
- * - buscarPorId(int id)       — busca pelo id numerico
- * - buscarPorNome(String nome) — busca pelo nome do funcionario
- */
 public class RepositorioFuncionario implements Repositorio<Funcionario> {
 
     private List<Funcionario> funcionarios = new ArrayList<>();
@@ -52,7 +45,6 @@ public class RepositorioFuncionario implements Repositorio<Funcionario> {
         return null;
     }
 
-    // SOBRECARGA: mesma operacao de busca, mas recebe String em vez de int.
     public List<Funcionario> buscarPorNome(String nome) {
         List<Funcionario> resultado = new ArrayList<>();
         for (Funcionario f : funcionarios) {
