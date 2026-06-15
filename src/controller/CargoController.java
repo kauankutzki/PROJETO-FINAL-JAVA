@@ -6,28 +6,15 @@ import repository.RepositorioCargo;
 
 import java.util.List;
 
-/**
- * CargoController — o "C" do MVC para Cargo.
- *
- * Fluxo:
- *   CargoView le o que o usuario digitou
- *     -> CargoController valida e decide o que fazer
- *        -> chama RepositorioCargo (que guarda os dados)
- *     <- devolve o resultado
- *   <- CargoView exibe na tela
- *
- * Regra importante:
- * - Nunca tem System.out aqui (isso e papel da View).
- * - Nunca tem regra de negocio na View (isso e papel do Controller/Model).
- */
+
 public class CargoController {
 
     private RepositorioCargo repositorio = new RepositorioCargo();
 
-    // --- CADASTRAR ---
+    
 
     public String cadastrar(String titulo, String nivelTexto, double salMin, double salMax) {
-        // Valida os dados antes de criar o objeto.
+        
         if (titulo == null || titulo.trim().isEmpty()) {
             return "ERRO: titulo nao pode ser vazio.";
         }
@@ -45,7 +32,7 @@ public class CargoController {
         return "Cargo cadastrado com sucesso! " + novo;
     }
 
-    // --- ALTERAR ---
+    
 
     public String alterarFaixa(int id, double novoMin, double novoMax) {
         Cargo cargo = repositorio.buscarPorId(id);
@@ -75,14 +62,6 @@ public class CargoController {
         return "Nivel atualizado! " + cargo;
     }
 
-    // --- EXCLUIR ---
-
-    /**
-     * Exclui um cargo.
-     * Regra de negocio: nao podemos excluir se o repositorio de funcionarios
-     * referenciar este cargo. Por ora, a verificacao fica por conta da View/usuario
-     * (na integracao final, o Aluno 1 fornece o RepositorioFuncionario para checar).
-     */
     public String excluir(int id) {
         Cargo cargo = repositorio.buscarPorId(id);
         if (cargo == null) {
@@ -92,7 +71,6 @@ public class CargoController {
         return "Cargo '" + cargo.getTitulo() + "' excluido com sucesso.";
     }
 
-    // --- LISTAR ---
 
     public List<Cargo> listarTodos() {
         return repositorio.listarTodos();
@@ -108,10 +86,6 @@ public class CargoController {
         return repositorio.buscarPorId(id);
     }
 
-    // --- AUXILIAR ---
-
-    // Converte o texto digitado pelo usuario no enum correspondente.
-    // IF/ELSE para cobrir os 4 casos validos e o caso invalido.
     private NivelCargo converterNivel(String texto) {
         if (texto == null) return null;
         switch (texto.trim().toUpperCase()) {
