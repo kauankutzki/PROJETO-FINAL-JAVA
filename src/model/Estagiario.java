@@ -1,14 +1,5 @@
 package model;
 
-/**
- * Estagiario — terceira filha de Funcionario.
- *
- * Regra simplificada: recebe a bolsa (salarioBase) + auxilio transporte de R$ 220.
- * Sem desconto.
- *
- * Tres filhas, tres formulas diferentes para a MESMA pergunta.
- * Esse e o ponto do polimorfismo.
- */
 public class Estagiario extends Funcionario {
 
     private static final double AUXILIO_TRANSPORTE = 220.0;
@@ -21,7 +12,6 @@ public class Estagiario extends Funcionario {
         this.instituicaoEnsino = instituicaoEnsino;
     }
 
-    // SOBRESCRITA: bolsa + auxilio transporte fixo.
     @Override
     public double calcularSalarioLiquido() {
         return salarioBase + AUXILIO_TRANSPORTE;
