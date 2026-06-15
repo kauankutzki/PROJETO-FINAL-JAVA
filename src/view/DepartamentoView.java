@@ -10,17 +10,6 @@ import service.RelatorioService;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * DepartamentoView — o "V" do MVC para Departamento.
- *
- * Exibe menus e le dados do console.
- * Integra com RelatorioService para mostrar o custo por departamento.
- *
- * IMPORTANTE (para a defesa):
- * - A listagem com custo de folha demonstra POLIMORFISMO ao vivo:
- *   cada funcionario do departamento calcula o proprio salario.
- * - A exclusao com validacao demonstra REGRA DE NEGOCIO no Controller.
- */
 public class DepartamentoView {
 
     private DepartamentoController controller;
@@ -28,11 +17,6 @@ public class DepartamentoView {
     private RelatorioService relatorioService;
     private Scanner scanner;
 
-    /**
-     * Recebe os controllers e o scanner como parametros.
-     * Isso permite que esta View acesse funcionarios ja cadastrados
-     * pelo Aluno 1, sem duplicar dados.
-     */
     public DepartamentoView(Scanner scanner,
                             DepartamentoController controller,
                             FuncionarioController funcController,
@@ -81,7 +65,6 @@ public class DepartamentoView {
         } while (opcao != 0);
     }
 
-    // --- acoes privadas ---
 
     private void cadastrar() {
         System.out.println("\n-- Cadastrar Departamento --");
@@ -130,7 +113,6 @@ public class DepartamentoView {
         System.out.print("ID do departamento: ");
         int id = lerInt();
 
-        // Lista os funcionarios disponiveis (modulo do Aluno 1).
         List<Funcionario> funcs = funcController.listarTodos();
         if (funcs.isEmpty()) {
             System.out.println("Nenhum funcionario cadastrado. Cadastre funcionarios primeiro.");
@@ -209,7 +191,6 @@ public class DepartamentoView {
         }
     }
 
-    // --- leituras seguras ---
 
     private int lerInt() {
         try {
