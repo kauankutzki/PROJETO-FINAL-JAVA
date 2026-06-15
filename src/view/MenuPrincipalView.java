@@ -16,21 +16,6 @@ import controller.TreinamentoController;
 import util.LoggerService;
 import java.util.Scanner;
 
-/**
- * MenuPrincipalView — integra os modulos de TODOS os alunos em um unico menu.
- *
- * Esse e o arquivo de responsabilidade do Aluno 5 (ETAPA 4 do documento de
- * arquitetura). Ele substitui o Main.java temporario.
- *
- * O Scanner e criado uma unica vez e passado para todas as Views,
- * para que compartilhem o mesmo fluxo de entrada do console.
- * Se cada View criasse o proprio Scanner, haveria conflitos de leitura.
- *
- * NOVOS MODULOS (Aluno 4 — Desempenho e Desenvolvimento) ainda nao
- * existem neste pacote. Quando esse aluno entregar AvaliacaoView e
- * TreinamentoView, basta seguir o mesmo padrao dos itens abaixo:
- * instanciar a View e adicionar uma nova opcao no menu/switch.
- */
 public class MenuPrincipalView {
 
     private Scanner scanner;
@@ -41,20 +26,15 @@ public class MenuPrincipalView {
 
     public void iniciar() {
 
-        // ---------- Aluno 1: Nucleo de Pessoal ----------
         FuncionarioController funcionarioController = new FuncionarioController();
 
-        // Registra no log que o sistema foi iniciado
         LoggerService.log("INFO", "Sistema iniciado");
-
-        // CARREGAR: ao iniciar o sistema, recupera os funcionarios salvos anteriormente
         funcionarioController.carregarDoArquivo();
 
         EstagiarioController estagiarioController = new EstagiarioController();
         EstagiarioView estagiarioView = new EstagiarioView(scanner, estagiarioController);
         FuncionarioView funcionarioView = new FuncionarioView(scanner, funcionarioController, estagiarioView);
 
-        // ---------- Aluno 2: Estrutura Organizacional ----------
         CargoController cargoController = new CargoController();
         CargoView cargoView = new CargoView(scanner);
 
@@ -63,17 +43,15 @@ public class MenuPrincipalView {
         DepartamentoView departamentoView = new DepartamentoView(
                 scanner, departamentoController, funcionarioController, repositorioDepartamento);
 
-        // ---------- Aluno 3: Folha & Beneficios ----------
         BeneficioController beneficioController = new BeneficioController();
         BeneficioView beneficioView = new BeneficioView(scanner, beneficioController);
 
         FolhaPagamentoController folhaPagamentoController = new FolhaPagamentoController(funcionarioController);
         FolhaPagamentoView folhaPagamentoView = new FolhaPagamentoView(scanner, folhaPagamentoController);
-        // Aluno 4
+  
         AvaliacaoView avaliacaoView = new AvaliacaoView(funcionarioController);
         TreinamentoView treinamentoView = new TreinamentoView(funcionarioController);
 
-        // ---------- Aluno 5: Recrutamento ----------
         VagaController vagaController = new VagaController();
         VagaView vagaView = new VagaView(scanner, vagaController, cargoController, departamentoController);
 
@@ -85,7 +63,6 @@ public class MenuPrincipalView {
 
         int opcao;
 
-        // DO-WHILE: roda pelo menos UMA vez e repete enquanto a opcao for diferente de 0.
         do {
             System.out.println("\n==============================");
             System.out.println("   SISTEMA DE GESTAO DE RH   ");
@@ -105,7 +82,6 @@ public class MenuPrincipalView {
 
             opcao = lerInt();
 
-            // SWITCH: cada numero leva para o menu de um modulo.
             switch (opcao) {
                 case 1: funcionarioView.exibirMenu();      break;
                 case 2: cargoView.exibirMenu();            break;
@@ -118,7 +94,7 @@ public class MenuPrincipalView {
                 case 9: avaliacaoView.menu(); break;
                 case 10: treinamentoView.menu(); break;
                 case 0:
-                    // SALVAR: ao sair do sistema, grava todos os funcionarios no arquivo
+    
                     funcionarioController.salvarEmArquivo();
                     LoggerService.log("INFO", "Sistema encerrado");
                     System.out.println("Dados salvos. Sistema encerrado.");
@@ -129,10 +105,6 @@ public class MenuPrincipalView {
         } while (opcao != 0);
     }
 
-    /**
-     * Tela de contratacao: junta dados do candidato com o cadastro de
-     * funcionario (RecrutamentoService cruza os dois modulos).
-     */
     private void contratarCandidato(RecrutamentoService recrutamentoService, CandidatoView candidatoView) {
         System.out.println("\n-- Contratar Candidato Aprovado --");
 
@@ -155,7 +127,6 @@ public class MenuPrincipalView {
         System.out.println(resultado);
     }
 
-    // --- leituras seguras com try/catch ---
 
     private int lerInt() {
         try {
