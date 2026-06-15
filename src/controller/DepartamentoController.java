@@ -6,23 +6,12 @@ import repository.RepositorioDepartamento;
 
 import java.util.List;
 
-/**
- * DepartamentoController — o "C" do MVC para Departamento.
- *
- * Gerencia o CRUD de departamentos:
- * - Cadastrar: cria o departamento com nome, sigla e orcamento.
- * - Alterar: atualiza gestor, orcamento ou nome.
- * - Excluir: so permite se nao houver funcionarios lotados (REGRA DE NEGOCIO).
- * - Listar: todos, com custo de folha calculado.
- *
- * A regra de excluir so se vazio e um exemplo de validacao de negocio:
- * a View pede, o Controller decide se pode ou nao.
- */
+
 public class DepartamentoController {
 
     private RepositorioDepartamento repositorio = new RepositorioDepartamento();
 
-    // --- CADASTRAR ---
+    
 
     public String cadastrar(String nome, String sigla, double orcamento) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -40,7 +29,7 @@ public class DepartamentoController {
         return "Departamento cadastrado com sucesso! " + novo;
     }
 
-    // --- ALTERAR ---
+    
 
     public String alterarNome(int id, String novoNome) {
         Departamento dep = repositorio.buscarPorId(id);
@@ -69,12 +58,7 @@ public class DepartamentoController {
         return "Gestor atualizado para: " + nomeGestor;
     }
 
-    // --- EXCLUIR ---
 
-    /**
-     * Regra de negocio: so exclui se o departamento estiver vazio.
-     * Demonstra validacao antes de uma operacao destrutiva.
-     */
     public String excluir(int id) {
         Departamento dep = repositorio.buscarPorId(id);
         if (dep == null) {
@@ -90,7 +74,7 @@ public class DepartamentoController {
         return "Departamento '" + dep.getNome() + "' excluido com sucesso.";
     }
 
-    // --- FUNCIONARIOS NO DEPARTAMENTO ---
+
 
     public String adicionarFuncionario(int idDep, Funcionario f) {
         Departamento dep = repositorio.buscarPorId(idDep);
@@ -109,7 +93,7 @@ public class DepartamentoController {
         return "Funcionario removido do departamento '" + dep.getNome() + "'.";
     }
 
-    // --- LISTAR ---
+    
 
     public List<Departamento> listarTodos() {
         return repositorio.listarTodos();
