@@ -1,20 +1,5 @@
 package model;
 
-/**
- * CLASSE ABSTRATA Pessoa.
- *
- * "abstract" = essa classe e so um MOLDE.
- * Voce NAO consegue fazer "new Pessoa()" — o Java nao deixa.
- * Porque no RH ninguem e "uma pessoa generica":
- * ou e Funcionario, ou e Candidato (do aluno 5).
- *
- * ENCAPSULAMENTO:
- * - atributos sao "protected" = so essa classe e as filhas enxergam.
- * - quem esta de fora muda os dados pelos setters.
- */
-// SERIALIZABLE: "assinar" essa interface diz ao Java que essa classe
-// pode ser transformada em arquivo. Como Funcionario herda de Pessoa,
-// CLT, PJ e Estagiario tambem ficam serializaveis automaticamente.
 public abstract class Pessoa implements java.io.Serializable {
 
     private static int contadorId = 1;
@@ -24,7 +9,6 @@ public abstract class Pessoa implements java.io.Serializable {
     protected String cpf;
     protected String email;
 
-    // CONSTRUTOR = a "receita" de como nasce uma Pessoa.
     public Pessoa(String nome, String cpf, String email) {
         this.id = contadorId++;
         setNome(nome);
@@ -32,13 +16,11 @@ public abstract class Pessoa implements java.io.Serializable {
         setEmail(email);
     }
 
-    // GETTERS (pegar o valor)
     public int getId() { return id; }
     public String getNome() { return nome; }
     public String getCpf() { return cpf; }
     public String getEmail() { return email; }
 
-    // SETTERS (mudar o valor)
     public void setNome(String nome) {this.nome = nome;}
 
     public void setCpf(String cpf) {this.cpf = cpf;}
