@@ -9,17 +9,6 @@ import model.Candidato;
 import model.Vaga;
 import model.enums.StatusCandidato;
 
-/**
- * RecrutamentoService — regra de negocio que envolve MAIS DE UMA entidade.
- *
- * A contratacao usa:
- * - CandidatoController (Aluno 5): pega os dados do candidato e o remove do processo.
- * - VagaController (Aluno 5): diminui a quantidade de posicoes da vaga.
- * - FuncionarioController e EstagiarioController (Aluno 1): cadastram o novo funcionario.
- *
- * E por isso que essa regra fica no "service" e nao dentro de um Controller so:
- * ela "cruza" o modulo de Recrutamento com o modulo de Pessoal.
- */
 public class RecrutamentoService {
 
     private CandidatoController candidatoController;
@@ -37,14 +26,7 @@ public class RecrutamentoService {
         this.estagiarioController = estagiarioController;
     }
 
-    /**
-     * Contrata um candidato APROVADO, transformando-o em Funcionario.
-     *
-     * @param idCandidato       id do candidato no RepositorioCandidato
-     * @param tipoContrato      "CLT", "PJ" ou "ESTAGIO"
-     * @param salario           salario base (CLT/PJ) ou bolsa (Estagio)
-     * @param instituicaoEnsino usado somente se tipoContrato for "ESTAGIO"
-     */
+
     public String contratar(int idCandidato, String tipoContrato, double salario, String instituicaoEnsino) {
         Candidato candidato = candidatoController.buscarPorId(idCandidato);
         if (candidato == null) {
@@ -59,8 +41,6 @@ public class RecrutamentoService {
         if (tipoContrato == null) {
             return "ERRO: tipo de contrato invalido. Use: CLT, PJ ou ESTAGIO.";
         }
-
-        // TRY/CATCH: o cadastro do funcionario pode lancar DadoInvalidoException
         try {
             switch (tipoContrato.trim().toUpperCase()) {
                 case "CLT":
@@ -79,10 +59,9 @@ public class RecrutamentoService {
             return "ERRO: " + e.getMessage();
         }
 
-        // O candidato virou funcionario: sai do processo seletivo.
+
         candidatoController.removerAposContratacao(idCandidato);
 
-        // A vaga tem uma posicao a menos disponivel.
         Vaga vaga = candidato.getVagaPretendida();
         if (vaga != null) {
             vagaController.diminuirQuantidade(vaga);
