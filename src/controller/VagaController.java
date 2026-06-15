@@ -8,25 +8,11 @@ import repository.RepositorioVaga;
 
 import java.util.List;
 
-/**
- * VagaController — o "C" do MVC para Vaga.
- *
- * Fluxo:
- *   VagaView le o que o usuario digitou
- *     -> VagaController valida e decide o que fazer
- *        -> chama RepositorioVaga (que guarda os dados)
- *     <- devolve o resultado
- *   <- VagaView exibe na tela
- *
- * Regra importante:
- * - Nunca tem System.out aqui (isso e papel da View).
- * - Nunca tem regra de negocio na View (isso e papel do Controller/Model).
- */
 public class VagaController {
 
     private RepositorioVaga repositorio = new RepositorioVaga();
 
-    // --- CADASTRAR ---
+    
 
     public String cadastrar(Cargo cargo, Departamento departamento, int quantidade) {
         if (cargo == null) {
@@ -44,7 +30,7 @@ public class VagaController {
         return "Vaga cadastrada com sucesso! " + nova;
     }
 
-    // --- ALTERAR ---
+    
 
     public String alterarStatus(int id, String statusTexto) {
         Vaga vaga = repositorio.buscarPorId(id);
@@ -73,7 +59,7 @@ public class VagaController {
         return "Quantidade atualizada! " + vaga;
     }
 
-    // --- EXCLUIR ---
+    
 
     public String excluir(int id) {
         Vaga vaga = repositorio.buscarPorId(id);
@@ -84,7 +70,7 @@ public class VagaController {
         return "Vaga [" + id + "] cancelada com sucesso.";
     }
 
-    // --- LISTAR ---
+    
 
     public List<Vaga> listarTodos() {
         return repositorio.listarTodos();
@@ -104,11 +90,7 @@ public class VagaController {
         return repositorio.buscarPorId(id);
     }
 
-    /**
-     * Diminui a quantidade de posicoes disponiveis na vaga em 1.
-     * Usado pelo RecrutamentoService quando um candidato e contratado.
-     * Se a quantidade chegar a zero, a vaga fecha automaticamente.
-     */
+    
     public void diminuirQuantidade(Vaga vaga) {
         if (vaga != null) {
             vaga.diminuirQuantidade();
@@ -116,10 +98,6 @@ public class VagaController {
         }
     }
 
-    // --- AUXILIAR ---
-
-    // Converte o texto digitado pelo usuario no enum correspondente.
-    // IF/ELSE (via switch) para cobrir os 3 casos validos e o caso invalido.
     private StatusVaga converterStatus(String texto) {
         if (texto == null) return null;
         switch (texto.trim().toUpperCase()) {
