@@ -7,25 +7,12 @@ import repository.RepositorioCandidato;
 
 import java.util.List;
 
-/**
- * CandidatoController — o "C" do MVC para Candidato.
- *
- * Fluxo:
- *   CandidatoView le o que o usuario digitou
- *     -> CandidatoController valida e decide o que fazer
- *        -> chama RepositorioCandidato (que guarda os dados)
- *     <- devolve o resultado
- *   <- CandidatoView exibe na tela
- *
- * Regra importante:
- * - Nunca tem System.out aqui (isso e papel da View).
- * - Nunca tem regra de negocio na View (isso e papel do Controller/Model).
- */
+
 public class CandidatoController {
 
     private RepositorioCandidato repositorio = new RepositorioCandidato();
 
-    // --- CADASTRAR ---
+    
 
     public String cadastrar(String nome, String cpf, String email, Vaga vaga,
                              double pretensaoSalarial, String curriculoResumo) {
@@ -47,7 +34,7 @@ public class CandidatoController {
         return "Candidato cadastrado com sucesso! " + novo;
     }
 
-    // --- ALTERAR ---
+    
 
     public String avancarEtapa(int id) {
         Candidato candidato = repositorio.buscarPorId(id);
@@ -89,7 +76,7 @@ public class CandidatoController {
         return "Dados atualizados! " + candidato;
     }
 
-    // --- EXCLUIR ---
+    
 
     public String excluir(int id) {
         Candidato candidato = repositorio.buscarPorId(id);
@@ -100,7 +87,7 @@ public class CandidatoController {
         return "Candidato '" + candidato.getNome() + "' removido do processo seletivo.";
     }
 
-    // --- LISTAR ---
+    
 
     public List<Candidato> listarTodos() {
         return repositorio.listarTodos();
@@ -120,18 +107,11 @@ public class CandidatoController {
         return repositorio.buscarPorId(id);
     }
 
-    /**
-     * Remove o candidato do processo seletivo.
-     * Usado pelo RecrutamentoService apos a contratacao
-     * (o candidato passa a ser Funcionario, nao faz mais sentido como Candidato).
-     */
+    
     public void removerAposContratacao(int id) {
         repositorio.excluir(id);
     }
 
-    // --- AUXILIAR ---
-
-    // Converte o texto digitado pelo usuario no enum correspondente.
     private StatusCandidato converterStatus(String texto) {
         if (texto == null) return null;
         switch (texto.trim().toUpperCase()) {
