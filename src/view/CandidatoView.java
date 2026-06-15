@@ -8,27 +8,12 @@ import model.Vaga;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * CandidatoView — o "V" do MVC para Candidato.
- *
- * Responsabilidade UNICA: entrada e saida de dados no console.
- * - Le o que o usuario digita (Scanner).
- * - Exibe resultados (System.out).
- * - NUNCA contem regra de negocio — isso fica no Controller/Service.
- *
- * Estruturas obrigatorias que aparecem aqui:
- * - DO-WHILE: loop principal do menu.
- * - SWITCH: roteia cada opcao do menu.
- * - FOR indexado: ao listar candidatos e vagas por indice.
- */
 public class CandidatoView {
 
     private CandidatoController controller;
     private VagaController vagaController;
     private Scanner scanner;
 
-    // Recebe Scanner e o VagaController (do proprio Aluno 5) de fora,
-    // para que o candidato possa escolher uma vaga ja cadastrada.
     public CandidatoView(Scanner scanner, CandidatoController controller, VagaController vagaController) {
         this.scanner = scanner;
         this.controller = controller;
@@ -38,7 +23,6 @@ public class CandidatoView {
     public void exibirMenu() {
         int opcao;
 
-        // DO-WHILE: executa ao menos uma vez, repete ate o usuario sair.
         do {
             System.out.println("\n===== MENU CANDIDATOS =====");
             System.out.println("1 - Cadastrar candidato");
@@ -53,7 +37,6 @@ public class CandidatoView {
 
             opcao = lerInt();
 
-            // SWITCH: cada numero leva para uma acao especifica.
             switch (opcao) {
                 case 1: cadastrar();      break;
                 case 2: listarTodos();    break;
@@ -69,7 +52,6 @@ public class CandidatoView {
         } while (opcao != 0);
     }
 
-    // --- acoes privadas (cada uma cuida de uma tela) ---
 
     private void cadastrar() {
         System.out.println("\n-- Cadastrar Candidato --");
@@ -108,7 +90,6 @@ public class CandidatoView {
         }
 
         System.out.println("\n-- Lista de Candidatos --");
-        // FOR indexado: percorre pelo indice, mostrando a posicao.
         for (int i = 0; i < lista.size(); i++) {
             System.out.println((i + 1) + ". " + lista.get(i));
         }
@@ -162,7 +143,6 @@ public class CandidatoView {
         System.out.println(controller.excluir(id));
     }
 
-    // --- auxiliar de escolha de vaga ---
 
     private Vaga escolherVaga() {
         List<Vaga> vagas = vagaController.listarTodos();
@@ -180,7 +160,6 @@ public class CandidatoView {
         return vagaController.buscarPorId(id);
     }
 
-    // --- leituras seguras com try/catch ---
 
     private int lerInt() {
         try {
